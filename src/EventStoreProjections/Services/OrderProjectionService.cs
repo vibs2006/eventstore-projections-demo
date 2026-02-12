@@ -44,50 +44,41 @@ public class OrderProjectionService : BackgroundService
             _logger.LogInformation("Resuming from checkpoint: {Checkpoint}", checkpoint?.ToString() ?? "Start");
 
             // Subscribe to all events
-            await _eventStoreClient.SubscribeToAllAsync(
-                fromPosition,
-                EventAppeared,
-                subscriptionDropped: SubscriptionDropped,
-                cancellationToken: stoppingToken);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Fatal error in Order Projection Service");
-            throw;
-        }
-    }
-
-    private async Task EventAppeared(
-        StreamSubscription subscription,
-        ResolvedEvent resolvedEvent,
-        CancellationToken cancellationToken)
-    {
-        try
-        {
-            // Skip system events
-            if (resolvedEvent.Event.EventType.StartsWith("$"))
-                return;
-
-            // Update current position
-            _currentPosition = resolvedEvent.Event.Position.CommitPosition;
-
-            // Process the event
-            await ProcessEventAsync(resolvedEvent, cancellationToken);
-
-            // Increment counter
-            _eventsSinceLastCheckpoint++;
-
-            // Save checkpoint every CheckpointInterval events
-            if (_eventsSinceLastCheckpoint >= CheckpointInterval)
+            await foreach (var resolvedEvent in _eventStoreClient.SubscribeToAll(fromPosition, cancellationToken: stoppingToken))
             {
-                await SaveCheckpointAsync(cancellationToken);
+                try
+                {
+                    // Skip system events
+                    if (resolvedEvent.Event.EventType.StartsWith("$"))
+                        continue;
+
+                    // Update current position
+                    _currentPosition = resolvedEvent.Event.Position.CommitPosition;
+
+                    // Process the event
+                    await ProcessEventAsync(resolvedEvent, stoppingToken);
+
+                    // Increment counter
+                    _eventsSinceLastCheckpoint++;
+
+                    // Save checkpoint every CheckpointInterval events
+                    if (_eventsSinceLastCheckpoint >= CheckpointInterval)
+                    {
+                        await SaveCheckpointAsync(stoppingToken);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error processing event {EventType} at position {Position}",
+                        resolvedEvent.Event.EventType,
+                        resolvedEvent.Event.Position.CommitPosition);
+                    throw;
+                }
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error processing event {EventType} at position {Position}",
-                resolvedEvent.Event.EventType,
-                resolvedEvent.Event.Position.CommitPosition);
+            _logger.LogError(ex, "Fatal error in Order Projection Service");
             throw;
         }
     }
@@ -187,10 +178,7 @@ public class OrderProjectionService : BackgroundService
         _eventsSinceLastCheckpoint = 0;
     }
 
-    private void SubscriptionDropped(StreamSubscription subscription, SubscriptionDroppedReason reason, Exception? exception)
-    {
-        _logger.LogWarning(exception, "Subscription dropped. Reason: {Reason}", reason);
-    }
+
 
     public override async Task StopAsync(CancellationToken cancellationToken)
     {

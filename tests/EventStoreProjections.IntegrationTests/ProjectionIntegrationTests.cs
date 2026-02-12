@@ -6,6 +6,7 @@ using EventStoreProjections.Services;
 using EventStoreProjections.IntegrationTests.TestFixtures;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
+using Xunit;
 
 namespace EventStoreProjections.IntegrationTests;
 

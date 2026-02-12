@@ -2,6 +2,7 @@ using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using EventStore.Client;
 using Npgsql;
+using Xunit;
 
 namespace EventStoreProjections.IntegrationTests.TestFixtures;
 
