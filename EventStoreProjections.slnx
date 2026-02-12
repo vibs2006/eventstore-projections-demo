@@ -1,8 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="src/EventStoreProjections/EventStoreProjections.csproj" />
-  </Folder>
-  <Folder Name="/tests/">
-    <Project Path="tests/EventStoreProjections.IntegrationTests/EventStoreProjections.IntegrationTests.csproj" />
-  </Folder>
-</Solution>

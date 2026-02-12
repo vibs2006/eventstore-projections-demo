@@ -1,0 +1,25 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStoreProjections", "src\EventStoreProjections\EventStoreProjections.csproj", "{2F9A8E41-3B4C-4D5E-9F1A-8C7D6E5B4A32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStoreProjections.IntegrationTests", "tests\EventStoreProjections.IntegrationTests\EventStoreProjections.IntegrationTests.csproj", "{3A8F7E52-4C6D-5E7F-0A2B-9D8E7F6C5B43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F9A8E41-3B4C-4D5E-9F1A-8C7D6E5B4A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9A8E41-3B4C-4D5E-9F1A-8C7D6E5B4A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F9A8E41-3B4C-4D5E-9F1A-8C7D6E5B4A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F9A8E41-3B4C-4D5E-9F1A-8C7D6E5B4A32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A8F7E52-4C6D-5E7F-0A2B-9D8E7F6C5B43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A8F7E52-4C6D-5E7F-0A2B-9D8E7F6C5B43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A8F7E52-4C6D-5E7F-0A2B-9D8E7F6C5B43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A8F7E52-4C6D-5E7F-0A2B-9D8E7F6C5B43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
