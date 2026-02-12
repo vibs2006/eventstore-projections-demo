@@ -178,8 +178,6 @@ public class OrderProjectionService : BackgroundService
         _eventsSinceLastCheckpoint = 0;
     }
 
-
-
     public override async Task StopAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Stopping Order Projection Service");

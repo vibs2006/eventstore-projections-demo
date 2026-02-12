@@ -46,7 +46,7 @@ public class ProjectionIntegrationTests : IClassFixture<EventStoreTestFixture>
             NullLogger<OrderProjectionService>.Instance);
 
         var cts = new CancellationTokenSource();
-        var serviceTask = service.StartAsync(cts.Token);
+        _ = service.StartAsync(cts.Token);
 
         // Act
         await _fixture.EventStoreClient.AppendToStreamAsync(
@@ -97,7 +97,7 @@ public class ProjectionIntegrationTests : IClassFixture<EventStoreTestFixture>
             NullLogger<OrderProjectionService>.Instance);
 
         var cts = new CancellationTokenSource();
-        var serviceTask = service.StartAsync(cts.Token);
+        _ = service.StartAsync(cts.Token);
 
         // Act
         await _fixture.EventStoreClient.AppendToStreamAsync(
@@ -154,7 +154,7 @@ public class ProjectionIntegrationTests : IClassFixture<EventStoreTestFixture>
             NullLogger<OrderProjectionService>.Instance);
 
         var cts1 = new CancellationTokenSource();
-        var serviceTask1 = service1.StartAsync(cts1.Token);
+        _ = service1.StartAsync(cts1.Token);
 
         await _fixture.EventStoreClient.AppendToStreamAsync(
             $"order-{orderId1}",
@@ -173,7 +173,7 @@ public class ProjectionIntegrationTests : IClassFixture<EventStoreTestFixture>
             NullLogger<OrderProjectionService>.Instance);
 
         var cts2 = new CancellationTokenSource();
-        var serviceTask2 = service2.StartAsync(cts2.Token);
+        _ = service2.StartAsync(cts2.Token);
 
         await _fixture.EventStoreClient.AppendToStreamAsync(
             $"order-{orderId2}",
@@ -222,7 +222,7 @@ public class ProjectionIntegrationTests : IClassFixture<EventStoreTestFixture>
             NullLogger<OrderProjectionService>.Instance);
 
         var cts = new CancellationTokenSource();
-        var serviceTask = service.StartAsync(cts.Token);
+        _ = service.StartAsync(cts.Token);
 
         // Act
         await _fixture.EventStoreClient.AppendToStreamAsync(
